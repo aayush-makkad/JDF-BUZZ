@@ -128,9 +128,107 @@ public class xmlWriter {
 				e.printStackTrace();
 			}
 			
+		}else if(arg.getIsQ())
+		{
+			
+			try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.newDocument();
+			
+			//create here
+			
+			Element rootElement = doc.createElement("Process-Q");
+	        doc.appendChild(rootElement);
+	        
+	        Element connect = doc.createElement("class");
+	        rootElement.appendChild(connect);
+	        
+	        Attr attr = doc.createAttribute("name");
+	        attr.setValue(arg.getClassName());
+	        connect.setAttributeNode(attr);
+	        
+	        
+	        Element schema = doc.createElement("method");
+	        rootElement.appendChild(schema);
+	        
+	        Attr attr2 = doc.createAttribute("name");
+	        attr2.setValue(arg.getMethodName());
+	        schema.setAttributeNode(attr2);
+	        
+	        
+	        int index = 0;
+	        int StringIndex = 0;
+	        int intIndex = 0;
+	        
+	        while(index < arg.Index.size()-1) {
+	        
+	        	
+	        	
+	        Element user = doc.createElement("parameter");
+	        rootElement.appendChild(user);
+	        
+	        
+	        for(Entry<Integer, String> e : arg.Index.entrySet()) {
+	        
+	        	index++;
+	        	
+	        	if(e.getValue().equalsIgnoreCase("string")) {
+	        	
+	        		
+			        Element schema1 = doc.createElement("param-string");
+			        user.appendChild(schema1);
+			        
+			        Attr attr3 = doc.createAttribute("parameter");
+			        attr3.setValue(arg.getStringParam().get(StringIndex));
+			        schema1.setAttributeNode(attr3);
+	        		
+	        		
+	        	}
+	        	else {
+	        		
+			        
+	        		
+			        Element schema2 = doc.createElement("param-int");
+			        user.appendChild(schema2);
+			        
+			        Attr attr4 = doc.createAttribute("parameter");
+			        attr4.setValue(String.valueOf(arg.getIntParam().get(intIndex)));
+			        intIndex++;
+			        schema2.setAttributeNode(attr4);
+	        		
+	        		
+	        	}
+	        }
+	        
+	        }
+	        
+	        
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	      
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+	        DOMSource source = new DOMSource(doc);
+	        StreamResult result = new StreamResult(new File("process-Q"+String.valueOf(ThreadLocalRandom.current().nextLong())+".xml"));
+	        transformer.transform(source, result);
+	        
+	        StreamResult consoleResult = new StreamResult(System.out);
+	        transformer.transform(source, consoleResult);
+			
+			}	
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+			
+			
+			
+			
 		}
 		
 		
 	}
+	
 
 }
