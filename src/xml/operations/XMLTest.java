@@ -1,8 +1,13 @@
 package xml.operations;
 
+import java.io.File;
+
+import poller.findFilesToProcess;
+import process.process;
+
 public class XMLTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		
 		/*
@@ -20,7 +25,7 @@ public class XMLTest {
 		
 		*/
 		
-		
+		/*
 		XMLParameters paramset = new XMLParameters();
 		paramset.setIsQ(true);
 		paramset.setClassName("class");
@@ -31,6 +36,18 @@ public class XMLTest {
 		
 		xmlWriter x = new xmlWriter();
 		x.write(paramset);
+		*/
+		
+		findFilesToProcess f = new findFilesToProcess();
+		Thread t1 = new Thread(f);
+		t1.start();
+		t1.join();
+		for(File ft : f.FilesToProcess) {
+			
+			System.out.println(ft.toString());
+		}
+		
+		
 	}
 
 }
