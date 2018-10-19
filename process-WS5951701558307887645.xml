@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process-WS>
+    <url address="https://google.com"/>
+    <port number="9900"/>
+    <parameter>
+        <param-int parameter="67"/>
+        <param-string parameter="yes"/>
+        <param-int parameter="88"/>
+    </parameter>
+</Process-WS>
