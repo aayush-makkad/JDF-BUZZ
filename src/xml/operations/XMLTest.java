@@ -1,9 +1,13 @@
 package xml.operations;
 
 import java.io.File;
+import java.util.ArrayList;
 
+import poller.GCPoller;
 import poller.findFilesToProcess;
 import process.process;
+import processor.ProcessorTimeLineWrapper;
+import tables.gc;
 
 public class XMLTest {
 
@@ -25,18 +29,17 @@ public class XMLTest {
 		
 		*/
 		
-		/*
+
 		XMLParameters paramset = new XMLParameters();
 		paramset.setIsQ(true);
 		paramset.setClassName("class");
 		paramset.setMethodName("method");
-		paramset.CreateNewIntParam(0);
-		paramset.CreateStringParam("string");
-		paramset.CreateNewIntParam(0);
-		
+		paramset.makeQParam(0);
+		paramset.makeQParam("writer");
+		paramset.makeQParam(0.89);
 		xmlWriter x = new xmlWriter();
 		x.write(paramset);
-		*/
+
 		
 		findFilesToProcess f = new findFilesToProcess();
 		Thread t1 = new Thread(f);
@@ -46,6 +49,22 @@ public class XMLTest {
 			
 			System.out.println(ft.toString());
 		}
+		
+		ArrayList<Object> Processed = new ArrayList<Object>();
+		gc togc = new gc();
+		
+		togc.setpath(findFilesToProcess.FilesToProcess.get(0).toString());
+		Processed.add(togc);
+		process.Insert("gc",Processed) ;
+		
+		GCPoller gp = new GCPoller();
+		Thread t2 = new Thread(gp);
+		t2.start();
+		
+		
+		processor.ProcessorTimeLineWrapper pr = new ProcessorTimeLineWrapper();
+		Thread t3 = new Thread(pr);
+		t3.start();
 		
 		
 	}

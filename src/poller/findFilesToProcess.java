@@ -23,6 +23,10 @@ public class findFilesToProcess implements Runnable{
 		
 		
 	}
+
+	public static ArrayList<File> getFilesToProcess() {
+		return FilesToProcess;
+	}
 	
 	
 	

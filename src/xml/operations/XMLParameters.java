@@ -14,6 +14,19 @@ public class XMLParameters {
 	public Boolean isPort = false;
 	public int port = 0;
 	
+	@SuppressWarnings("rawtypes")
+	public HashMap<String,String> QParamSet = new HashMap<String,String>();
+	
+	
+	   public  < E > void makeQParam( E input ) {
+
+		   
+		   QParamSet.put(input.toString(),input.getClass().getName());
+		   
+		     
+		   }
+	
+	
 	public ArrayList<Integer> intParam = new ArrayList<>();
 	public ArrayList<String> stringParam = new ArrayList<String>();
 	

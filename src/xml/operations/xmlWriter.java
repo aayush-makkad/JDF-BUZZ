@@ -144,17 +144,27 @@ public class xmlWriter {
 	        Element connect = doc.createElement("class");
 	        rootElement.appendChild(connect);
 	        
-	        Attr attr = doc.createAttribute("name");
-	        attr.setValue(arg.getClassName());
-	        connect.setAttributeNode(attr);
+	        
+	        Element name = doc.createElement("Class-Name");
+	        //Attr attrType = doc.createAttribute("Name");
+	        //attrType.setValue(ColName);
+	        //name.setAttributeNode(attrType);
+	        name.appendChild(doc.createTextNode(arg.getClassName()));
+	        connect.appendChild(name);
+	        
 	        
 	        
 	        Element schema = doc.createElement("method");
 	        rootElement.appendChild(schema);
 	        
-	        Attr attr2 = doc.createAttribute("name");
-	        attr2.setValue(arg.getMethodName());
-	        schema.setAttributeNode(attr2);
+	        
+	        Element mname = doc.createElement("Method-Name");
+	        //Attr attrType = doc.createAttribute("Name");
+	        //attrType.setValue(ColName);
+	        //name.setAttributeNode(attrType);
+	        mname.appendChild(doc.createTextNode(arg.getMethodName()));
+	        schema.appendChild(mname);
+	        
 	        
 	        
 	        int index = 0;
@@ -176,12 +186,26 @@ public class xmlWriter {
 	        	if(e.getValue().equalsIgnoreCase("string")) {
 	        	
 	        		
-			        Element schema1 = doc.createElement("param-string");
+			        Element schema1 = doc.createElement("param");
 			        user.appendChild(schema1);
 			        
-			        Attr attr3 = doc.createAttribute("parameter");
-			        attr3.setValue(arg.getStringParam().get(StringIndex));
-			        schema1.setAttributeNode(attr3);
+			        
+			        
+			        Element para = doc.createElement("param-val");
+			        //Attr attrType = doc.createAttribute("Name");
+			        //attrType.setValue(ColName);
+			        //name.setAttributeNode(attrType);
+			        para.appendChild(doc.createTextNode(arg.getStringParam().get(StringIndex)));
+			        para.appendChild(schema1);
+			        
+			        
+			        
+			        
+			        
+			        
+			        Attr attr6 = doc.createAttribute("type");
+			        attr6.setValue(arg.getStringParam().get(StringIndex));
+			        schema1.setAttributeNode(attr6);
 	        		
 	        		
 	        	}
@@ -189,7 +213,7 @@ public class xmlWriter {
 	        		
 			        
 	        		
-			        Element schema2 = doc.createElement("param-int");
+			        Element schema2 = doc.createElement("param");
 			        user.appendChild(schema2);
 			        
 			        Attr attr4 = doc.createAttribute("parameter");
